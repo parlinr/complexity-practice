@@ -1,0 +1,1 @@
+This project is an attempt to implement the model complex systems used in Neil Johnson's "Simply Complexity."
