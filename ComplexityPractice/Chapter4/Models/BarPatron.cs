@@ -15,8 +15,9 @@ namespace Chapter4
         #region PROPERTIES
         //this array tracks the result of the patron's decisions on the provious two Fridays
         public int[] PreviousTwoFridays { get; set; }
-        //this is the bias factor by which a patron's decision to go or not go will be modified by
-        public double P { get; set; }
+        //this is the bias factor by which a patron's decision to go or not go will be modified by, values range from 0-100
+        //using int instead of double because I want 1.0 to be a possible probability and Random.NextDouble does not return 1.0
+        public int P { get; set; }
 
         //these ints track the individual patron's response to the last time a particular pattern arose
         // 0 = do not go

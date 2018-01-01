@@ -50,7 +50,7 @@ namespace Chapter4
                         ConsoleView.DefaultResponse();
                         break;
                     case AppEnum.MenuAction.RunSim:
-                        ConsoleView.DefaultResponse();
+                        RunSim();
                         break;
                     case AppEnum.MenuAction.ViewCurrentSim:
                         ConsoleView.DefaultResponse();
@@ -90,7 +90,7 @@ namespace Chapter4
                 BarPatron patron = new BarPatron();
                 patron.ID = i;
                 Random random = new Random();
-                patron.P = (double)random.Next(101) / 100;
+                patron.P = random.Next(101);
 
                 listOfPatrons.Add(patron);
                 //the program needs to wait to get a new seed for the Random object
@@ -107,6 +107,32 @@ namespace Chapter4
             string filePath = ConsoleView.GetFilePath();
             businessLayer.SavePatrons(listOfPatrons, filePath);
         }
+
+        /// <summary>
+        /// Simulates a Friday night at the bar
+        /// </summary>
+        private void RunSim()
+        {
+            //make sure a sim is loaded/created; if not, the user needs to load or make one
+            if (listOfPatrons.Count == 0)
+            {
+                ConsoleView.NoSimLoaded();
+                return;
+            }
+
+
+        }
+
+        /// <summary>
+        /// Handles the biased coin flips to determine whether a patron will go to the bar on a Friday night. Takes the patron's P value as an argument
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private bool BiasedCoinFlip(int P)
+        {
+
+        }
+        
         #endregion
 
 

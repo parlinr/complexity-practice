@@ -86,6 +86,13 @@ namespace Chapter4
             Console.ReadKey(true);
         }
 
+        public static void NoSimLoaded()
+        {
+            Console.Clear();
+            Console.WriteLine("You have not loaded or created a new sim. Press any key to return to the main menu to load or create a sim.");
+            Console.ReadKey(true);
+        }
+
         public static string GetFilePath()
         {
             string sourceFolder = "Saves\\";
