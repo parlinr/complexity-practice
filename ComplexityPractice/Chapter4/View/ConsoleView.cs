@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Chapter4
 {
@@ -18,9 +19,10 @@ namespace Chapter4
             Console.WriteLine("(3) Run Sim");
             Console.WriteLine("(4) View Current Sim");
             Console.WriteLine("(5) Change Properties");
-            Console.WriteLine("(6) Export Sim Data");
-            Console.WriteLine("(7) Delete Sim");
-            Console.WriteLine("(8) Exit");
+            Console.WriteLine("(6) Save Sim Data");
+            Console.WriteLine("(7) Export Sim Data");
+            Console.WriteLine("(8) Delete Sim");
+            Console.WriteLine("(9) Exit");
 
             ConsoleKeyInfo userResponse = Console.ReadKey(true);
             AppEnum.MenuAction userResponseEnum;
@@ -43,12 +45,15 @@ namespace Chapter4
                     userResponseEnum = AppEnum.MenuAction.ChangeProperties;
                     break;
                 case '6':
-                    userResponseEnum = AppEnum.MenuAction.ExportSimData;
+                    userResponseEnum = AppEnum.MenuAction.SaveSimData;
                     break;
                 case '7':
-                    userResponseEnum = AppEnum.MenuAction.DeleteSim;
+                    userResponseEnum = AppEnum.MenuAction.ExportSimData;
                     break;
                 case '8':
+                    userResponseEnum = AppEnum.MenuAction.DeleteSim;
+                    break;
+                case '9':
                     userResponseEnum = AppEnum.MenuAction.Exit;
                     break;
                 default:
@@ -74,5 +79,57 @@ namespace Chapter4
             Console.WriteLine("You made a valid selection. Press any key to continue.");
             Console.ReadKey(true);
         }
+
+        public static void NewSimSuccess()
+        {
+            Console.WriteLine("The new simulation was successfully created. Press any key to continue.");
+            Console.ReadKey(true);
+        }
+
+        public static string GetFilePath()
+        {
+            string sourceFolder = "Saves\\";
+            string filePath = "";
+            bool validFilePath = false;
+
+            while (!validFilePath)
+            {
+                Console.Clear();
+                Console.WriteLine("Enter the name for the new save file.");
+                string fileName = Console.ReadLine();
+                fileName += ".json";
+                //from https://stackoverflow.com/questions/4650462/easiest-way-to-check-if-an-arbitrary-string-is-a-valid-filename
+                var isValid = !string.IsNullOrEmpty(fileName) &&
+                  fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0 &&
+                  !File.Exists(Path.Combine(sourceFolder, fileName));
+                if (isValid)
+                {
+                    Console.WriteLine("The chosen file name is valid. Press any key to continue.");
+                    filePath = sourceFolder + fileName;
+                    validFilePath = true;
+                    Console.ReadKey(true);
+                }
+                else
+                {
+                    Console.WriteLine("The chosen file name is not valid. Press any key to try again.");
+                    Console.ReadKey(true);
+                }
+            }
+            return filePath;
+
+        }
+
+        public static void SaveSuccessful()
+        {
+            Console.WriteLine("The save operation was successful. Press any key to continue.");
+            Console.ReadKey(true);
+        }
+
+        public static void NewSimWait()
+        {
+            Console.Clear();
+            Console.WriteLine("The sim files are being created. Please wait.");
+        }
     }
+
 }

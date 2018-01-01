@@ -18,7 +18,8 @@ namespace Chapter4
             ChangeProperties,
             ExportSimData,
             DeleteSim,
-            Exit
+            Exit,
+            SaveSimData
         }
 
     }
