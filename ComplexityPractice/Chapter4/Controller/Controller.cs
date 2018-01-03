@@ -142,7 +142,7 @@ namespace Chapter4
             //otherwise, just use the patron's WillHistoryRepeatItself value to determine
             //whether or not to go to the bar
             
-            if (simHistory.Count >= 2)
+            if (simHistory.Count >= 3)
             {
                 foreach (BarPatron patron in listOfPatrons)
                 {

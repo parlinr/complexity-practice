@@ -103,19 +103,107 @@ namespace Chapter4
             //if not, use the simple method
             if (secondToLastValue == 0 && lastValue == 0)
             {
-
+                if (crib00 != null)
+                {
+                    if (crib00 == true && WillHistoryRepeatItself == true)
+                    {
+                        WillIGoToTheBarTonight = false;
+                    }
+                    else if (crib00 == true && WillHistoryRepeatItself == false)
+                    {
+                        WillIGoToTheBarTonight = true;
+                    }
+                    else if (crib00 == false && WillHistoryRepeatItself == true)
+                    {
+                        WillIGoToTheBarTonight = true;
+                    }
+                    else if (crib00 == false && WillHistoryRepeatItself == false)
+                    {
+                        WillIGoToTheBarTonight = false;
+                    }
+                }
+                else
+                {
+                    WillIGoToTheBarSimple();
+                }
             }
             else if (secondToLastValue == 0 && lastValue == 1)
             {
-
+                if (crib01 != null)
+                {
+                    if (crib01 == true && WillHistoryRepeatItself == true)
+                    {
+                        WillIGoToTheBarTonight = false;
+                    }
+                    else if (crib01 == true && WillHistoryRepeatItself == false)
+                    {
+                        WillIGoToTheBarTonight = true;
+                    }
+                    else if (crib01 == false && WillHistoryRepeatItself == true)
+                    {
+                        WillIGoToTheBarTonight = true;
+                    }
+                    else if (crib01 == false && WillHistoryRepeatItself == false)
+                    {
+                        WillIGoToTheBarTonight = false;
+                    }
+                }
+                else
+                {
+                    WillIGoToTheBarSimple();
+                }
             }
             else if (secondToLastValue == 1 && lastValue == 0)
             {
-
+                if (crib10 != null)
+                {
+                    if (crib10 == true && WillHistoryRepeatItself == true)
+                    {
+                        WillIGoToTheBarTonight = false;
+                    }
+                    else if (crib10 == true && WillHistoryRepeatItself == false)
+                    {
+                        WillIGoToTheBarTonight = true;
+                    }
+                    else if (crib10 == false && WillHistoryRepeatItself == true)
+                    {
+                        WillIGoToTheBarTonight = true;
+                    }
+                    else if (crib10 == false && WillHistoryRepeatItself == false)
+                    {
+                        WillIGoToTheBarTonight = false;
+                    }
+                }
+                else
+                {
+                    WillIGoToTheBarSimple();
+                }
             }
             else
             {
-
+                if (crib11 != null)
+                {
+                    if (crib11 == true && WillHistoryRepeatItself == true)
+                    {
+                        WillIGoToTheBarTonight = false;
+                    }
+                    else if (crib11 == true && WillHistoryRepeatItself == false)
+                    {
+                        WillIGoToTheBarTonight = true;
+                    }
+                    else if (crib11 == false && WillHistoryRepeatItself == true)
+                    {
+                        WillIGoToTheBarTonight = true;
+                    }
+                    else if (crib11 == false && WillHistoryRepeatItself == false)
+                    {
+                        WillIGoToTheBarTonight = false;
+                    }
+                }
+                else
+                {
+                    WillIGoToTheBarSimple();
+                }
             }
             
         }
