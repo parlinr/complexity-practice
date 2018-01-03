@@ -15,9 +15,15 @@ namespace Chapter4
         #region PROPERTIES
         //this array tracks the result of the patron's decisions on the provious two Fridays
         public int[] PreviousTwoFridays { get; set; }
-        //this is the bias factor by which a patron's decision to go or not go will be modified by, values range from 0-100
+        //this is the bias factor which determines if the patron thinks history will repeat itself, values range from 0-100
+        // 0 = history will never repeat itself
+        // 100 = history will always repeat itself 
         //using int instead of double because I want 1.0 to be a possible probability and Random.NextDouble does not return 1.0
         public int P { get; set; }
+        //this bool tracks whether a patron thinks history will repeat itself on a particular Friday night
+        public bool WillHistoryRepeatItself { get; set; }
+        //this bool tracks whether a patron went to the bar on a particular night
+        public bool WillIGoToTheBarTonight { get; set; }
 
         //these ints track the individual patron's response to the last time a particular pattern arose
         // 0 = do not go
@@ -39,7 +45,45 @@ namespace Chapter4
         #endregion
 
         #region METHODS
+        /// <summary>
+        /// Handles the biased coin flips to determine whether a patron thinks history will repeat itself. 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public void BiasedCoinFlip()
+        {
+            Random random = new Random();
+            int coinFlipResult = random.Next(101);
+            
 
+            //if P < coinFlipResult, patron thinks history will not repeat itself
+            //if P >= coinFlipResult, patron thinks history will repeat itself
+            if (P < coinFlipResult)
+            {
+                WillHistoryRepeatItself = false;
+            }
+            else
+            {
+                WillHistoryRepeatItself = true;
+            }
+
+            
+        }
+
+        /// <summary>
+        /// This method determines whether a patron will go to the bar on a particular night
+        /// </summary>
+        public void WillIGoToTheBar()
+        {
+            if (WillHistoryRepeatItself == true)
+            {
+                WillIGoToTheBarTonight = true;
+            }
+            else if (WillHistoryRepeatItself == false)
+            {
+                WillIGoToTheBarTonight = false;
+            }
+        }
         #endregion
     }
 }

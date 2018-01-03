@@ -18,6 +18,10 @@ namespace Chapter4
         AppEnum.MenuAction userResponse;
         List<BarPatron> listOfPatrons;
         BusinessLayer businessLayer;
+        List<int> simHistory;
+
+        //crib sheets
+
         #endregion
 
         #region PROPERTIES
@@ -29,6 +33,7 @@ namespace Chapter4
         {
             listOfPatrons = new List<BarPatron>();
             businessLayer = new BusinessLayer();
+            simHistory = new List<int>();
             ApplicationControl();
         }
         #endregion
@@ -113,6 +118,8 @@ namespace Chapter4
         /// </summary>
         private void RunSim()
         {
+            List<BarPatron> bargoingPatrons = new List<BarPatron>();
+            
             //make sure a sim is loaded/created; if not, the user needs to load or make one
             if (listOfPatrons.Count == 0)
             {
@@ -120,18 +127,40 @@ namespace Chapter4
                 return;
             }
 
+            //all patrons perform their biased coin flips to determine whether they think
+            //history will repeat itself that night
+            foreach (BarPatron patron in listOfPatrons)
+            {
+                patron.BiasedCoinFlip();
+            }
+
+            //if there are at least two values for history, see if there is a crib sheet
+            //value and use it
+            //otherwise, just use the patron's WillHistoryRepeatItself value to determine
+            //whether or not to go to the bar
+            /*
+            if (simHistory.Count >= 2)
+            {
+
+            }
+            else
+            {
+
+            }
+            */
+
+            foreach (BarPatron patron in listOfPatrons)
+            {
+                patron.WillIGoToTheBar();
+                if (patron.WillIGoToTheBarTonight == true)
+                {
+                    bargoingPatrons.Add(patron);
+                }
+            }
 
         }
 
-        /// <summary>
-        /// Handles the biased coin flips to determine whether a patron will go to the bar on a Friday night. Takes the patron's P value as an argument
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        private bool BiasedCoinFlip(int P)
-        {
-
-        }
+        
         
         #endregion
 
