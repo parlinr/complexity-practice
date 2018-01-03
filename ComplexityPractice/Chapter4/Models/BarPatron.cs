@@ -84,6 +84,12 @@ namespace Chapter4
                 WillIGoToTheBarTonight = false;
             }
         }
+
+        public void GeneratePValue()
+        {
+            Random random = new Random();
+            P = random.Next(101);
+        }
         #endregion
     }
 }

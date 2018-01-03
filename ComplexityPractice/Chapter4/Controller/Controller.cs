@@ -18,7 +18,7 @@ namespace Chapter4
         AppEnum.MenuAction userResponse;
         List<BarPatron> listOfPatrons;
         BusinessLayer businessLayer;
-        List<int> simHistory;
+        List<BarNight> simHistory;
 
         //crib sheets
 
@@ -33,7 +33,7 @@ namespace Chapter4
         {
             listOfPatrons = new List<BarPatron>();
             businessLayer = new BusinessLayer();
-            simHistory = new List<int>();
+            simHistory = new List<BarNight>();
             ApplicationControl();
         }
         #endregion
@@ -94,9 +94,7 @@ namespace Chapter4
             {
                 BarPatron patron = new BarPatron();
                 patron.ID = i;
-                Random random = new Random();
-                patron.P = random.Next(101);
-
+                patron.GeneratePValue();
                 listOfPatrons.Add(patron);
                 //the program needs to wait to get a new seed for the Random object
                 Thread.Sleep(20);
@@ -118,6 +116,7 @@ namespace Chapter4
         /// </summary>
         private void RunSim()
         {
+            ConsoleView.SimStart();
             List<BarPatron> bargoingPatrons = new List<BarPatron>();
             
             //make sure a sim is loaded/created; if not, the user needs to load or make one
@@ -158,6 +157,67 @@ namespace Chapter4
                 }
             }
 
+            //count the bargoing patrons
+            int patronsGoingToBar = bargoingPatrons.Count;
+
+            //determine who wins and loses and record this night appropriately
+            bool wasNumberOfBargoersGreaterThan60 = false;
+
+            //determine if the night was overcrowded or undercrowded
+            //and record it in the sim history
+            if (patronsGoingToBar > 60)
+            {
+                wasNumberOfBargoersGreaterThan60 = true;
+                BarNight tonight = new BarNight();
+                tonight.ID = simHistory.Count;
+                tonight.Result = 0;
+                simHistory.Add(tonight);
+            }
+            else if (patronsGoingToBar <= 60)
+            {
+                wasNumberOfBargoersGreaterThan60 = false;
+                BarNight tonight = new BarNight();
+                tonight.ID = simHistory.Count;
+                tonight.Result = 1;
+                simHistory.Add(tonight);
+            }
+
+            //determine if each individual patron won or lost
+            foreach (BarPatron patron in listOfPatrons)
+            {
+                if (wasNumberOfBargoersGreaterThan60 == true && patron.WillIGoToTheBarTonight == true)
+                {
+                    patron.Losses += 1;
+                }
+                else if (wasNumberOfBargoersGreaterThan60 == true && patron.WillIGoToTheBarTonight == false)
+                {
+                    patron.Wins += 1;
+                }
+                else if (wasNumberOfBargoersGreaterThan60 == false && patron.WillIGoToTheBarTonight == true)
+                {
+                    patron.Wins += 1;
+                }
+                else if (wasNumberOfBargoersGreaterThan60 == false && patron.WillIGoToTheBarTonight == false)
+                {
+                    patron.Losses += 1;
+                }
+            }
+            
+            //each patron analyzes their cumulative results
+            //and generates a new P value if needed
+            foreach (BarPatron patron in listOfPatrons)
+            {
+                if (patron.Wins - patron.Losses <= -5)
+                {
+                    patron.GeneratePValue();
+                    //the thread needs to wait for 20 ms to ensure that a new seed is obtained
+                    Thread.Sleep(20);
+                    patron.Wins = 0;
+                    patron.Losses = 0;
+                }
+            }
+
+            ConsoleView.SimEnd();
         }
 
         

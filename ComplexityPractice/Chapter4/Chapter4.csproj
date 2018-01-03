@@ -51,6 +51,7 @@
     <Compile Include="DAL\JSONRepository.cs" />
     <Compile Include="Models\AppEnum.cs" />
     <Compile Include="Models\Bar.cs" />
+    <Compile Include="Models\BarNight.cs" />
     <Compile Include="Models\BarPatron.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

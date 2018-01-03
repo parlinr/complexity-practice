@@ -137,6 +137,19 @@ namespace Chapter4
             Console.Clear();
             Console.WriteLine("The sim files are being created. Please wait.");
         }
+
+        public static void SimStart()
+        {
+            Console.Clear();
+            Console.WriteLine("The sim is running. Please wait.");
+
+        }
+
+        public static void SimEnd()
+        {
+            Console.WriteLine("The sim has completed. Press any key to continue.");
+            Console.ReadKey(true);
+        }
     }
 
 }
