@@ -93,7 +93,7 @@ namespace Chapter4
             Console.ReadKey(true);
         }
 
-        public static string GetFilePath()
+        public static string GetFilePath(string ext)
         {
             string sourceFolder = "Saves\\";
             string filePath = "";
@@ -104,7 +104,15 @@ namespace Chapter4
                 Console.Clear();
                 Console.WriteLine("Enter the name for the new save file.");
                 string fileName = Console.ReadLine();
-                fileName += ".json";
+                if (ext == "json")
+                {
+                    fileName += ".json";
+                }
+                else if (ext == "csv")
+                {
+                    fileName += ".csv";
+                }
+                
                 //from https://stackoverflow.com/questions/4650462/easiest-way-to-check-if-an-arbitrary-string-is-a-valid-filename
                 var isValid = !string.IsNullOrEmpty(fileName) &&
                   fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0 &&
@@ -132,6 +140,45 @@ namespace Chapter4
             Console.ReadKey(true);
         }
 
+        public static void ExportSuccessful()
+        {
+            Console.WriteLine("The export operation was successful. Press any key to continue.");
+            Console.ReadKey(true);
+        }
+
+        public static int GetNumberOfTimesToRunSim()
+        {
+            bool validInt = false;
+            int userInt = 0;
+
+            while (!validInt)
+            {
+                Console.Clear();
+                Console.WriteLine("Enter the number of times you want to run the sim.");
+                string userResponse = Console.ReadLine();
+                
+                try
+                {
+                    userInt = Convert.ToInt32(userResponse);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("You did not enter an integer. Press any key to try again.");
+                    Console.ReadKey(true);
+                    continue;
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("The integer you entered was too large. Press any key to try again.");
+                    Console.ReadKey(true);
+                    continue;
+                }
+                validInt = true;
+            }
+            return userInt;
+            
+        }
+
         public static void NewSimWait()
         {
             Console.Clear();
@@ -149,6 +196,11 @@ namespace Chapter4
         {
             Console.WriteLine("The sim has completed. Press any key to continue.");
             Console.ReadKey(true);
+        }
+
+        public static void SimRunStarting()
+        {
+            Console.WriteLine("A sim run is in progress ....");
         }
     }
 

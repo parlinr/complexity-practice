@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BusinessLayer\BusinessLayer.cs" />
     <Compile Include="Controller\Controller.cs" />
+    <Compile Include="DAL\CSVExportRepository.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\JSONRepository.cs" />
     <Compile Include="Models\AppEnum.cs" />

@@ -15,10 +15,10 @@ namespace Chapter4
         #region PROPERTIES
         //this array tracks the result of the patron's decisions on the provious two Fridays
         public int[] PreviousTwoFridays { get; set; }
-        //this is the bias factor which determines if the patron thinks history will repeat itself, values range from 0-100
+        //this is the bias factor which determines if the patron thinks history will repeat itself, values range from 0-99
         // 0 = history will never repeat itself
-        // 100 = history will always repeat itself 
-        //using int instead of double because I want 1.0 to be a possible probability and Random.NextDouble does not return 1.0
+        // 99 = history will always repeat itself 
+        
         public int P { get; set; }
         //this bool tracks whether a patron thinks history will repeat itself on a particular Friday night
         public bool WillHistoryRepeatItself { get; set; }
@@ -56,12 +56,20 @@ namespace Chapter4
         public void BiasedCoinFlip()
         {
             Random random = new Random();
-            int coinFlipResult = random.Next(101);
+            int coinFlipResult = random.Next(100);
             
 
             //if P < coinFlipResult, patron thinks history will not repeat itself
             //if P >= coinFlipResult, patron thinks history will repeat itself
-            if (P < coinFlipResult)
+            if (P == 0)
+            {
+                WillHistoryRepeatItself = false;
+            }
+            else if (P == 99)
+            {
+                WillHistoryRepeatItself = true;
+            }
+            else if (P < coinFlipResult)
             {
                 WillHistoryRepeatItself = false;
             }
@@ -211,7 +219,7 @@ namespace Chapter4
         public void GeneratePValue()
         {
             Random random = new Random();
-            P = random.Next(101);
+            P = random.Next(100);
         }
         #endregion
     }

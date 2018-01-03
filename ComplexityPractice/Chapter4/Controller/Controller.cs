@@ -68,7 +68,7 @@ namespace Chapter4
                         ConsoleView.DefaultResponse();
                         break;
                     case AppEnum.MenuAction.ExportSimData:
-                        ConsoleView.DefaultResponse();
+                        ExportSimData();
                         break;
                     case AppEnum.MenuAction.DeleteSim:
                         ConsoleView.DefaultResponse();
@@ -111,7 +111,7 @@ namespace Chapter4
         /// </summary>
         private void SaveSimData()
         {
-            string filePath = ConsoleView.GetFilePath();
+            string filePath = ConsoleView.GetFilePath("json");
             businessLayer.SavePatrons(listOfPatrons, filePath);
         }
 
@@ -120,9 +120,24 @@ namespace Chapter4
         /// </summary>
         private void RunSim()
         {
+            int numberOfTimes = ConsoleView.GetNumberOfTimesToRunSim();
             ConsoleView.SimStart();
-            List<BarPatron> bargoingPatrons = new List<BarPatron>();
+            for (int i = 0; i < numberOfTimes; i++)
+            {
+                ConsoleView.SimRunStarting();
+                ProcessSimIteration();
+            }
             
+            ConsoleView.SimEnd();
+        }
+
+        /// <summary>
+        /// The sim iterations are performed here
+        /// </summary>
+        private void ProcessSimIteration()
+        {
+            List<BarPatron> bargoingPatrons = new List<BarPatron>();
+
             //make sure a sim is loaded/created; if not, the user needs to load or make one
             if (listOfPatrons.Count == 0)
             {
@@ -141,13 +156,13 @@ namespace Chapter4
             //value and use it
             //otherwise, just use the patron's WillHistoryRepeatItself value to determine
             //whether or not to go to the bar
-            
+
             if (simHistory.Count >= 3)
             {
                 foreach (BarPatron patron in listOfPatrons)
                 {
                     int historyCount = simHistory.Count;
-                    patron.WillIGoToTheBarWithHistory(last00, last01, last10, last11, simHistory.ElementAt(historyCount-2), simHistory.ElementAt(historyCount-1));
+                    patron.WillIGoToTheBarWithHistory(last00, last01, last10, last11, simHistory.ElementAt(historyCount - 2), simHistory.ElementAt(historyCount - 1));
                     if (patron.WillIGoToTheBarTonight == true)
                     {
                         bargoingPatrons.Add(patron);
@@ -165,9 +180,9 @@ namespace Chapter4
                     }
                 }
             }
-            
 
-            
+
+
 
             //count the bargoing patrons
             int patronsGoingToBar = bargoingPatrons.Count;
@@ -219,7 +234,7 @@ namespace Chapter4
             int count = simHistory.Count;
             if (count > 2)
             {
-                if (simHistory.ElementAt(count-3).Result == 0 && simHistory.ElementAt(count-2).Result==0)
+                if (simHistory.ElementAt(count - 3).Result == 0 && simHistory.ElementAt(count - 2).Result == 0)
                 {
                     last00 = wasNumberOfBargoersGreaterThan60;
                 }
@@ -236,7 +251,7 @@ namespace Chapter4
                     last11 = wasNumberOfBargoersGreaterThan60;
                 }
             }
-            
+
             //each patron analyzes their cumulative results
             //and generates a new P value if needed
             foreach (BarPatron patron in listOfPatrons)
@@ -251,9 +266,13 @@ namespace Chapter4
                 }
             }
 
-            ConsoleView.SimEnd();
         }
 
+        private void ExportSimData()
+        {
+            string filePath = ConsoleView.GetFilePath("csv");
+            businessLayer.ExportSimData(listOfPatrons, filePath);
+        }
         
         
         #endregion

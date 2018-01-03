@@ -17,5 +17,12 @@ namespace Chapter4
             ConsoleView.SaveSuccessful();
         }
 
+        public void ExportSimData(List<BarPatron> listOfPatrons, string filePath)
+        {
+            CSVExportRepository c = new CSVExportRepository();
+            c.ExportSimData(listOfPatrons, filePath);
+            ConsoleView.ExportSuccessful();
+        }
+
     }
 }
