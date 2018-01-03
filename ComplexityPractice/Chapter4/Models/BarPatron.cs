@@ -9,7 +9,7 @@ namespace Chapter4
     public class BarPatron
     {
         #region FIELDS
-
+        
         #endregion
 
         #region PROPERTIES
@@ -24,6 +24,7 @@ namespace Chapter4
         public bool WillHistoryRepeatItself { get; set; }
         //this bool tracks whether a patron went to the bar on a particular night
         public bool WillIGoToTheBarTonight { get; set; }
+        //these are the null history objects for the first two runs
 
         //these ints track the individual patron's response to the last time a particular pattern arose
         // 0 = do not go
@@ -41,7 +42,9 @@ namespace Chapter4
         #endregion
 
         #region CONSTRUCTORS
-
+        public BarPatron()
+        {
+        }
         #endregion
 
         #region METHODS
@@ -71,9 +74,10 @@ namespace Chapter4
         }
 
         /// <summary>
-        /// This method determines whether a patron will go to the bar on a particular night
+        /// This method determines whether a patron will go to the bar on a particular night.
+        /// Used when there are 0 or 1 previous Friday nights simulated.
         /// </summary>
-        public void WillIGoToTheBar()
+        public void WillIGoToTheBarSimple()
         {
             if (WillHistoryRepeatItself == true)
             {
@@ -83,6 +87,37 @@ namespace Chapter4
             {
                 WillIGoToTheBarTonight = false;
             }
+        }
+
+        /// <summary>
+        /// This method determines whether a patron will go to the bar on a particular night.
+        /// Used when there are two or more previous Friday nights simulated.
+        /// </summary>
+        public void WillIGoToTheBarWithHistory(bool? crib00, bool? crib01, bool? crib10, bool? crib11, BarNight secondToLast, BarNight last)
+        {
+            //get the result of the previous two nights
+            int secondToLastValue = secondToLast.Result;
+            int lastValue = last.Result;
+
+            //check the corresponding crib sheet to see if it has a non-null value
+            //if not, use the simple method
+            if (secondToLastValue == 0 && lastValue == 0)
+            {
+
+            }
+            else if (secondToLastValue == 0 && lastValue == 1)
+            {
+
+            }
+            else if (secondToLastValue == 1 && lastValue == 0)
+            {
+
+            }
+            else
+            {
+
+            }
+            
         }
 
         public void GeneratePValue()

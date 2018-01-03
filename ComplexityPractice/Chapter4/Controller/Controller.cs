@@ -20,7 +20,11 @@ namespace Chapter4
         BusinessLayer businessLayer;
         List<BarNight> simHistory;
 
-        //crib sheets
+        //crib sheets (false = go, true = don't go)
+        bool? last00 = null;
+        bool? last01 = null;
+        bool? last10 = null;
+        bool? last11 = null;
 
         #endregion
 
@@ -137,25 +141,33 @@ namespace Chapter4
             //value and use it
             //otherwise, just use the patron's WillHistoryRepeatItself value to determine
             //whether or not to go to the bar
-            /*
+            
             if (simHistory.Count >= 2)
             {
-
+                foreach (BarPatron patron in listOfPatrons)
+                {
+                    int historyCount = simHistory.Count;
+                    patron.WillIGoToTheBarWithHistory(last00, last01, last10, last11, simHistory.ElementAt(historyCount-2), simHistory.ElementAt(historyCount-1));
+                    if (patron.WillIGoToTheBarTonight == true)
+                    {
+                        bargoingPatrons.Add(patron);
+                    }
+                }
             }
             else
             {
-
-            }
-            */
-
-            foreach (BarPatron patron in listOfPatrons)
-            {
-                patron.WillIGoToTheBar();
-                if (patron.WillIGoToTheBarTonight == true)
+                foreach (BarPatron patron in listOfPatrons)
                 {
-                    bargoingPatrons.Add(patron);
+                    patron.WillIGoToTheBarSimple();
+                    if (patron.WillIGoToTheBarTonight == true)
+                    {
+                        bargoingPatrons.Add(patron);
+                    }
                 }
             }
+            
+
+            
 
             //count the bargoing patrons
             int patronsGoingToBar = bargoingPatrons.Count;
@@ -200,6 +212,28 @@ namespace Chapter4
                 else if (wasNumberOfBargoersGreaterThan60 == false && patron.WillIGoToTheBarTonight == false)
                 {
                     patron.Losses += 1;
+                }
+            }
+
+            //crib sheet is updated
+            int count = simHistory.Count;
+            if (count > 2)
+            {
+                if (simHistory.ElementAt(count-3).Result == 0 && simHistory.ElementAt(count-2).Result==0)
+                {
+                    last00 = wasNumberOfBargoersGreaterThan60;
+                }
+                else if (simHistory.ElementAt(count - 3).Result == 0 && simHistory.ElementAt(count - 2).Result == 1)
+                {
+                    last01 = wasNumberOfBargoersGreaterThan60;
+                }
+                else if (simHistory.ElementAt(count - 3).Result == 1 && simHistory.ElementAt(count - 2).Result == 0)
+                {
+                    last10 = wasNumberOfBargoersGreaterThan60;
+                }
+                else if (simHistory.ElementAt(count - 3).Result == 1 && simHistory.ElementAt(count - 2).Result == 1)
+                {
+                    last11 = wasNumberOfBargoersGreaterThan60;
                 }
             }
             
