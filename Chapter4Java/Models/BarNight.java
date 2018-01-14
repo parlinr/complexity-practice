@@ -5,17 +5,23 @@ public class BarNight {
     private int _id;
     private int _result;
 
-    //PROPERTIES
-    
-    /*
-    public final Property<Integer> ID =
-        get(() -> _id)
-        .set(value -> _id = value);
+    //GET/SET
+    public int getID() {
+        return _id;
+    }
 
-    public final Property<Integer> Result =
-        get(() -> _result)
-        .set(value -> _result = value);
-    */
+    public void setID(int input) {
+        _id = input;
+    }
+
+    public int getResult() {
+        return _result;
+    }
+
+    public void setResult(int input) {
+        _result = input;
+    }
+    
 
     
     

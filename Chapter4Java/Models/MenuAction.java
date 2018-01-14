@@ -1,4 +1,3 @@
-public class AppEnum {
     public enum MenuAction {
         None,
         NewSim,
@@ -11,4 +10,4 @@ public class AppEnum {
         Exit,
         SaveSimData
     }
-}
+

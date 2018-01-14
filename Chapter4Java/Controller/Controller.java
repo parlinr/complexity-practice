@@ -1,4 +1,4 @@
-import AppEnum.MenuAction;
+
 
 public class Controller {
     //FIELDS
@@ -7,7 +7,7 @@ public class Controller {
 
 
 
-    //PROPERTIES
+    //GET/SET
 
     //CONSTRUCTORS
     
@@ -15,8 +15,8 @@ public class Controller {
         BarNight test = new BarNight();
         System.out.println("Enter a value for the object: ");
         int value = Integer.parseInt(System.console().readLine());
-        test.ID = value;
-        System.out.println("The object's value is: " + test.ID);
+        test.setID(value);
+        System.out.println("The object's value is: " + test.getID());
     }
     
     //METHODS
