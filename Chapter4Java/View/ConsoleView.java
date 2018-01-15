@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.lang.Number;
 
 public class ConsoleView {
     //FIELDS
@@ -122,6 +123,7 @@ public class ConsoleView {
                 }
                 else {
                     filePath = sourceFolder + fileName;
+                    file.delete();
                 }
             }
             catch (IOException io) {
@@ -136,5 +138,57 @@ public class ConsoleView {
             }
         }
         return filePath;
-    } 
+    }
+    
+    public void SaveSuccessful() {
+        System.out.println("The save operation was successful. Press enter to continue.");
+        scanner.next();
+    }
+
+    public void ExportSuccessful() {
+        System.out.println("The export operation was successful. Press enter to continue.");
+        scanner.next();
+    }
+
+    public int GetNumberOfTimesToRunSim() {
+        boolean validInt = false;
+        int userInt = 0;
+
+        while (!validInt) {
+            ClearScreen();
+            System.out.println("Enter the number of times you want to run the sim.");
+            String userResponse = scanner.nextLine();
+
+            try {
+                userInt = Integer.parseInt(userResponse);
+            }
+            catch (NumberFormatException n) {
+                System.out.println("The quantity you entered is either not an integer or is out of bounds. Press enter to try again.");
+                scanner.next();
+                continue;
+            }
+            validInt = true;
+        }
+
+        return userInt;
+    }
+
+    public void NewSimWait() {
+        ClearScreen();
+        System.out.println("The sim files are being created. Please wait.");
+    }
+
+    public void SimStart() {
+        ClearScreen();
+        System.out.println("The sim is running. Please wait.");
+    }
+
+    public void SimEnd() {
+        System.out.println("The sim has completed. Press enter to continue.");
+        scanner.next();
+    }
+
+    public void SimRunStarting() {
+        System.out.println("A sim run is in progress ....");
+    }
 }
