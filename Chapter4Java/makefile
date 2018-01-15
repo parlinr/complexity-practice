@@ -13,4 +13,4 @@ all:
 #adding the <classname>.class filenames as an argument to rm as they are created 
 .PHONY : clean
 clean:
-	rm -f Controller.class Program.class BarNight.class MenuAction.class IRepository.class
+	rm -f Controller.class Program.class BarNight.class MenuAction.class IRepository.class BarPatron.class

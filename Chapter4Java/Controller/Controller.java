@@ -4,6 +4,9 @@ public class Controller {
     //FIELDS
     boolean applicationRunning = true;
     MenuAction userResponse;
+    //this is needed in Java since top-level static classes are
+    //not allowed
+    //ConsoleView view;
 
 
 
