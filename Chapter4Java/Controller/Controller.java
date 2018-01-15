@@ -22,5 +22,6 @@ public class Controller {
         System.out.println("The object's value is: " + test.getID());
     }
     
+    
     //METHODS
 }
